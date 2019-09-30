@@ -1,0 +1,3 @@
+# We want to render the Go files for IntelliJ but these should be
+# generated at build time.
+*.go

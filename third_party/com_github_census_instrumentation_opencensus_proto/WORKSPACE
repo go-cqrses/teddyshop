@@ -1,0 +1,1 @@
+workspace(name = "com_github_census_instrumentation_opencensus_proto")

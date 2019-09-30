@@ -1,0 +1,13 @@
+common --experimental_allow_incremental_repository_updates
+
+# Add more details about test failures in the logs.
+test --test_output all
+
+# Binary build features.
+build --features=pure
+build --features=static
+
+# NEW: Starting with Bazel 0.27.0, you also need to add to your .bazelrc file the following:
+build --host_force_python=PY2
+test --host_force_python=PY2
+run --host_force_python=PY2

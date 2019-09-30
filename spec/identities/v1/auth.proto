@@ -1,0 +1,161 @@
+syntax = "proto3";
+package teddyshop.auth.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/go-cqrses/teddyshop/spec/identities/v1;identities";
+
+service Identities {
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/v1/login"
+      body: "*"
+    };
+  }
+
+  rpc TokenRevoke(TokenRevokeRequest) returns (TokenRevokeResponse) {
+    option (google.api.http) = {
+      post: "/v1/token/revoke"
+      body: "*"
+    };
+  }
+
+  rpc TokenCheck(TokenCheckRequest) returns (TokenCheckResponse) {
+    option (google.api.http) = {
+      post: "/v1/token/check"
+      body: "*"
+    };
+  }
+
+  rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {
+    option (google.api.http) = {
+      post: "/v1/accounts"
+      body: "*"
+    };
+  }
+
+  rpc QueryAccounts(QueryAccountsRequest) returns (QueryAccountsResponse) {
+    option (google.api.http) = {
+      get: "/v1/accounts"
+    };
+  }
+
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse) {
+    option (google.api.http) = {
+      get: "/v1/accounts/{account_id}"
+    };
+  }
+
+  rpc UpdateAccountPassword(UpdateAccountPasswordRequest) returns (UpdateAccountPasswordResponse) {
+    option (google.api.http) = {
+      post: "/v1/accounts/{account_id}/change_password"
+      body: "*"
+    };
+  }
+
+  rpc UpdateAccountDetails(UpdateAccountDetailsRequest) returns (UpdateAccountDetailsResponse) {
+    option (google.api.http) = {
+      post: "/v1/accounts/{account_id}/update_details"
+      body: "*"
+    };
+  }
+
+  rpc GetAccountWithCredentials(GetAccountWithCredentialsRequest) returns (GetAccountWithCredentialsResponse) {}
+}
+
+message LoginRequest {
+  string email_address = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+  string account_id = 2;
+  string email_address = 3;
+}
+
+message TokenRevokeRequest {
+  string token = 1;
+}
+
+message TokenRevokeResponse {}
+
+message TokenCheckRequest {
+  string token = 1;
+}
+
+message TokenCheckResponse {
+  string account_id = 1;
+  string email_address = 2;
+}
+
+message Account {
+  string account_id = 1;
+  string email_address = 2;
+  bool active = 3;
+  google.protobuf.Timestamp created = 4;
+
+  string forename = 101;
+  string surname = 102;
+  string telephone = 103;
+}
+
+message CreateAccountRequest {
+  string account_id = 1;
+  string email_address = 2;
+  string password = 3;
+
+  string forename = 101;
+  string surname = 102;
+  string telephone = 103;
+}
+
+message CreateAccountResponse {}
+
+message QueryAccountsRequest {
+  repeated string account_id = 1;
+  repeated string email_address = 2;
+
+  PaginationRequest pagination = 101;
+}
+
+message QueryAccountsResponse {
+  repeated Account items = 1;
+
+  PaginationResponse pagination = 101;
+}
+
+message GetAccountRequest {
+  string account_id = 1;
+}
+
+message GetAccountResponse {
+  Account account = 1;
+}
+
+message UpdateAccountPasswordRequest {
+  string account_id = 1;
+  string new_password = 2;
+}
+
+message UpdateAccountPasswordResponse {}
+
+message UpdateAccountDetailsRequest {
+  string account_id = 1;
+  string forename = 2;
+  string surname = 3;
+  string telephone = 4;
+}
+
+message UpdateAccountDetailsResponse {}
+
+message GetAccountWithCredentialsRequest {
+  string email_address = 1;
+  string password = 2;
+}
+
+message GetAccountWithCredentialsResponse {
+  Account account = 1;
+}
