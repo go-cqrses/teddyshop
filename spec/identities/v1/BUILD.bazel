@@ -23,7 +23,6 @@ go_proto_library(
 
 go_library(
     name = "go_default_library",
-    srcs = ["doc.go"],
     embed = [":identities_go_proto"],
     importpath = "github.com/go-cqrses/teddyshop/spec/identities/v1",
     visibility = ["//visibility:public"],

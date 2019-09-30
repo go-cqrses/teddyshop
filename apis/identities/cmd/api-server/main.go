@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	identities "github.com/go-cqrses/teddyshop/spec/identities/v1"
+	"github.com/go-cqrses/teddyshop/spec/identities/v1"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
