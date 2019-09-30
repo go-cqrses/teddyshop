@@ -117,14 +117,10 @@ message CreateAccountResponse {}
 message QueryAccountsRequest {
   repeated string account_id = 1;
   repeated string email_address = 2;
-
-  PaginationRequest pagination = 101;
 }
 
 message QueryAccountsResponse {
   repeated Account items = 1;
-
-  PaginationResponse pagination = 101;
 }
 
 message GetAccountRequest {
